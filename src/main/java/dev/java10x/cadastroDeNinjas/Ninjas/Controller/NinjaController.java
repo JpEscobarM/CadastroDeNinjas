@@ -1,4 +1,4 @@
-package dev.java10x.cadastroDeNinjas.NinjaController;
+package dev.java10x.cadastroDeNinjas.Ninjas.Controller;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping
 public class NinjaController {
 
-    @GetMapping("/home")
+    @GetMapping("/home/api/ninja")
     public String home(){
 
-        return "<h1>Spring application Ninjas Running</h1>";
+        return "<h1>Spring application Ninjas Controller Running</h1>";
     }
 }

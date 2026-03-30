@@ -1,7 +1,10 @@
-package dev.java10x.cadastroDeNinjas.NinjaModel;
+package dev.java10x.cadastroDeNinjas.Ninjas.Model;
 
 
+import dev.java10x.cadastroDeNinjas.Missao.Model.Missao;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "ninja")
@@ -13,11 +16,12 @@ public class Ninja {
     private String email;
     private Long idade;
     private String aldeia;
+    private List<Missao> listaMissoes;
 
     public Ninja() {
     }
 
-    public Ninja( String nome, String email, Long idade, String aldeia) {
+    public Ninja(String nome, String email, Long idade, String aldeia) {
         this.nome = nome;
         this.email = email;
         this.idade = idade;
