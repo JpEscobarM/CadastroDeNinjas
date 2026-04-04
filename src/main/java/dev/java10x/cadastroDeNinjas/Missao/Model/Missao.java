@@ -17,7 +17,9 @@ public class Missao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
+
     private Ranking dificuldade;
 
     @OneToMany(mappedBy = "missao")
