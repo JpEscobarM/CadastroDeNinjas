@@ -16,7 +16,10 @@ public class Ninja {
     private String email;
     private Long idade;
     private String aldeia;
-    private List<Missao> listaMissoes;
+
+    @ManyToOne
+    @JoinColumn(columnDefinition = "id_missao")
+    private Missao missao;
 
     public Ninja() {
     }

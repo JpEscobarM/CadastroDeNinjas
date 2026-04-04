@@ -19,6 +19,7 @@ public class Missao {
 
     private Ranking dificuldade;
 
+    @OneToMany(mappedBy = "missao")
     private List<Ninja> listaNinjas;
 
 }
