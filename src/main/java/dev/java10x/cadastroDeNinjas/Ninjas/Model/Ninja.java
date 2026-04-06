@@ -16,12 +16,17 @@ public class Ninja {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "nome")
     private String nome;
 
-    @Column(unique = true)
+    @Column(unique = true, name = "email")
     private String email;
 
+    @Column(name = "idade")
     private Long idade;
+
+    @Column(name = "aldeia")
     private String aldeia;
 
     @ManyToOne
