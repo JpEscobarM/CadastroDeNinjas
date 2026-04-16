@@ -27,7 +27,7 @@ public class NinjaController {
     public ResponseEntity<?> buscarNinjaPorId(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body("Ninja encontrado com id: " + id);
+                .body(ninjaService.findById(id));
     }
 
     // READ ALL
@@ -35,7 +35,7 @@ public class NinjaController {
     public ResponseEntity<?> buscarTodos() {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body("Lista de todos os ninjas");
+                .body(ninjaService.findAllNinjas());
     }
 
     // UPDATE

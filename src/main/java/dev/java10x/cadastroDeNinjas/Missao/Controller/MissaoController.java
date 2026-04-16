@@ -16,7 +16,7 @@ public class MissaoController {
 
 
     //CREATE
-    @PostMapping("/criar")
+    @PostMapping()
     public ResponseEntity<?> criarMissao(@RequestBody Missao aNonCreatedMission)
     {
 

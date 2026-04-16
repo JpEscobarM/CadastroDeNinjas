@@ -1,6 +1,7 @@
 package dev.java10x.cadastroDeNinjas.Ninjas.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import dev.java10x.cadastroDeNinjas.Missao.Model.Missao;
 import jakarta.persistence.*;
 import lombok.*;
