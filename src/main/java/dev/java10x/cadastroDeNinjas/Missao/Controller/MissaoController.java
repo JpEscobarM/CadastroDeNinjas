@@ -32,16 +32,16 @@ public class MissaoController {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body("Response");
+                .body(missaoService.findById(id));
     }
 
-    @GetMapping("/all")
+    @GetMapping()
     public ResponseEntity<?> buscarTodos()
     {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body("Response");
+                .body(missaoService.findAllMissoes());
     }
 
     //UPDATE
