@@ -17,9 +17,12 @@ public class NinjaController {
     // CREATE
     @PostMapping
     public ResponseEntity<?> criarNinja(@RequestBody Ninja novoNinja) {
+
+        Ninja ninjaCriado = ninjaService.ninjaCreate(novoNinja);
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(novoNinja);
+                .body(ninjaCriado);
     }
 
     // READ BY ID
