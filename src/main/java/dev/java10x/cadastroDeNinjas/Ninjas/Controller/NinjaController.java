@@ -7,8 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api/ninja")
 public class NinjaController {
@@ -20,7 +18,7 @@ public class NinjaController {
     @PostMapping
     public ResponseEntity<?> criarNinja(@RequestBody Ninja novoNinja) {
 
-        Ninja ninjaCriado = ninjaService.ninjaCreate(novoNinja);
+        Ninja ninjaCriado = ninjaService.criarNinja(novoNinja);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -46,12 +44,9 @@ public class NinjaController {
     // UPDATE
     @PutMapping("/{id}")
     public ResponseEntity<?> alterarNinja(@PathVariable Long id, @RequestBody Ninja ninjaAlterado) {
-
-
-
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body("Ninja alterado com id: " + id);
+                .body( ninjaService.atualizarNinja(id,ninjaAlterado));
     }
 
     // DELETE
