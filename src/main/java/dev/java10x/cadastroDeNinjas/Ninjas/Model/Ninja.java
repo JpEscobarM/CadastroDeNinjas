@@ -30,8 +30,7 @@ public class Ninja {
     @Column(name = "aldeia")
     private String aldeia;
 
-    @Column (name = "ranking")
-    private String ranking;
+
 
 
     @ManyToOne
