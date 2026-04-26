@@ -1,8 +1,7 @@
 package dev.java10x.cadastroDeNinjas.Missao.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import dev.java10x.cadastroDeNinjas.Ninjas.Enums.Ranking;
+import dev.java10x.cadastroDeNinjas.Missao.Enums.Ranking;
 import dev.java10x.cadastroDeNinjas.Ninjas.Model.Ninja;
 import jakarta.persistence.*;
 import lombok.*;

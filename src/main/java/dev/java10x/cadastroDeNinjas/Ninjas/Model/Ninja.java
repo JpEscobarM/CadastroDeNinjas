@@ -30,11 +30,8 @@ public class Ninja {
     @Column(name = "aldeia")
     private String aldeia;
 
-
-
-
     @ManyToOne
-    @JoinColumn(name= "id_missao")
+    @JoinColumn(name= "id_missao", nullable = true)
     private Missao missao;
 
 }
