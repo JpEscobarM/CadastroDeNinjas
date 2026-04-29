@@ -2,6 +2,9 @@ package dev.java10x.cadastroDeNinjas.Ninjas.Controller;
 
 import dev.java10x.cadastroDeNinjas.Ninjas.Model.Ninja;
 import dev.java10x.cadastroDeNinjas.Ninjas.Service.NinjaService;
+import dev.java10x.cadastroDeNinjas.Ninjas.dto.NinjaDTO;
+import dev.java10x.cadastroDeNinjas.Ninjas.mapper.NinjaMapper;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +19,13 @@ public class NinjaController {
 
     // CREATE
     @PostMapping
-    public ResponseEntity<?> criarNinja(@RequestBody Ninja novoNinja) {
+    public ResponseEntity<?> criarNinja(@RequestBody NinjaDTO novoNinja) {
 
-        Ninja ninjaCriado = ninjaService.criarNinja(novoNinja);
+        Ninja ninjaCriado = ninjaService.criarNinja(NinjaMapper.toEntity(novoNinja));
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(ninjaCriado);
+                .body(NinjaMapper.toDTO(ninjaCriado));
     }
 
     // READ BY ID
@@ -30,7 +33,7 @@ public class NinjaController {
     public ResponseEntity<?> buscarNinjaPorId(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(ninjaService.findById(id));
+                .body(NinjaMapper.toDTO(ninjaService.findById(id)));
     }
 
     // READ ALL
@@ -57,4 +60,5 @@ public class NinjaController {
 
      return ResponseEntity.noContent().build();
     }
+
 }

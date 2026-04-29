@@ -30,8 +30,13 @@ public class Ninja {
     @Column(name = "aldeia")
     private String aldeia;
 
+    @Column(name="ranking")
+    private String ranking;
+
     @ManyToOne
     @JoinColumn(name= "id_missao", nullable = true)
     private Missao missao;
+
+
 
 }
