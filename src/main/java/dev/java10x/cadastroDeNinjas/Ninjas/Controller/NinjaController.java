@@ -4,7 +4,7 @@ import dev.java10x.cadastroDeNinjas.Ninjas.Model.Ninja;
 import dev.java10x.cadastroDeNinjas.Ninjas.Service.NinjaService;
 import dev.java10x.cadastroDeNinjas.Ninjas.dto.NinjaDTO;
 import dev.java10x.cadastroDeNinjas.Ninjas.mapper.NinjaMapper;
-import org.apache.coyote.Response;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,17 +39,25 @@ public class NinjaController {
     // READ ALL
     @GetMapping
     public ResponseEntity<?> buscarTodos() {
+
+
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(ninjaService.findAllNinjas());
+                .body(
+                        ninjaService.findAllNinjas()
+                        .stream()
+                        .map(NinjaMapper::toDTO)
+                        .toList()
+                );
+
     }
 
     // UPDATE
     @PutMapping("/{id}")
-    public ResponseEntity<?> alterarNinja(@PathVariable Long id, @RequestBody Ninja ninjaAlterado) {
+    public ResponseEntity<?> alterarNinja(@PathVariable Long id, @RequestBody NinjaDTO ninjaAlterado) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body( ninjaService.atualizarNinja(id,ninjaAlterado));
+                .body( NinjaMapper.toDTO(ninjaService.atualizarNinja(id,ninjaAlterado)));
     }
 
     // DELETE
