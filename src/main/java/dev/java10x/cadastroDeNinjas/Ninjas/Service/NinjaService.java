@@ -4,6 +4,7 @@ import dev.java10x.cadastroDeNinjas.Missao.Repository.MissaoRepository;
 import dev.java10x.cadastroDeNinjas.Ninjas.Model.Ninja;
 import dev.java10x.cadastroDeNinjas.Ninjas.Repository.NinjaRepository;
 import dev.java10x.cadastroDeNinjas.Ninjas.dto.NinjaDTO;
+import dev.java10x.cadastroDeNinjas.Ninjas.exception.NinjaNotFoundException;
 import dev.java10x.cadastroDeNinjas.Ninjas.mapper.NinjaMapper;
 import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,8 @@ public class NinjaService {
 
         Optional<Ninja> ninjaOptional = ninjaRepository.findById(id);
 
-        Ninja ninjaEncontrado = ninjaOptional.orElseThrow(()->new RuntimeException("Ninja nao encontrado"));
+        Ninja ninjaEncontrado = ninjaOptional.orElseThrow(() -> new NinjaNotFoundException(id));
+
 
         return ninjaEncontrado;
     }
@@ -45,6 +47,10 @@ public class NinjaService {
 
 
     public void deleteNinja(Long id) {
+
+        Ninja ninja = ninjaRepository.findById(id).orElseThrow(() -> new NinjaNotFoundException(id));
+
+
         ninjaRepository.deleteById(id);
     }
 

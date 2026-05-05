@@ -3,12 +3,17 @@ package dev.java10x.cadastroDeNinjas.Ninjas.Controller;
 import dev.java10x.cadastroDeNinjas.Ninjas.Model.Ninja;
 import dev.java10x.cadastroDeNinjas.Ninjas.Service.NinjaService;
 import dev.java10x.cadastroDeNinjas.Ninjas.dto.NinjaDTO;
+import dev.java10x.cadastroDeNinjas.Ninjas.exception.NinjaNotFoundException;
 import dev.java10x.cadastroDeNinjas.Ninjas.mapper.NinjaMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/ninja")
@@ -38,7 +43,7 @@ public class NinjaController {
 
     // READ ALL
     @GetMapping
-    public ResponseEntity<?> buscarTodos() {
+    public ResponseEntity<List<NinjaDTO>> buscarTodos() {
 
 
         return ResponseEntity
@@ -54,7 +59,7 @@ public class NinjaController {
 
     // UPDATE
     @PutMapping("/{id}")
-    public ResponseEntity<?> alterarNinja(@PathVariable Long id, @RequestBody NinjaDTO ninjaAlterado) {
+    public ResponseEntity<NinjaDTO> alterarNinja(@PathVariable Long id, @RequestBody NinjaDTO ninjaAlterado) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body( NinjaMapper.toDTO(ninjaService.atualizarNinja(id,ninjaAlterado)));
@@ -62,11 +67,13 @@ public class NinjaController {
 
     // DELETE
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletarNinja(@PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> deletarNinja(@PathVariable Long id) {
 
         ninjaService.deleteNinja(id);
 
-     return ResponseEntity.noContent().build();
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(Map.of("response","ninja com ID="+id+" deletado com sucesso."));
+
     }
 
 }
