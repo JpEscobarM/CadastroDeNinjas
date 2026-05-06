@@ -16,10 +16,11 @@ import java.util.Optional;
 @Service
 public class NinjaService {
 
-    @Autowired
-    NinjaRepository ninjaRepository;
+
+    private final NinjaRepository ninjaRepository;
 
     public NinjaService(NinjaRepository ninjaRepository) {
+
         this.ninjaRepository = ninjaRepository;
     }
 
@@ -58,15 +59,10 @@ public class NinjaService {
 
         Optional<Ninja> ninjaExistente = ninjaRepository.findById(id);
 
-        if(ninjaExistente.isPresent())
-        {
-            ninjaAtualizado.setId(id);
+        Ninja ninja = ninjaExistente.orElseThrow(() -> new NinjaNotFoundException(id));
 
+        return  ninjaRepository.save(NinjaMapper.toEntity(ninjaAtualizado));
 
-            return  ninjaRepository.save(NinjaMapper.toEntity(ninjaAtualizado));
-        }
-
-            return null;
     }
 
 

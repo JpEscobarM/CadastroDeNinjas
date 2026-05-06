@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/missao")
 public class MissaoController {
 
-    @Autowired
-    MissaoService missaoService;
+
+   private final MissaoService missaoService;
+
+
+    public MissaoController(MissaoService missaoService) {
+        this.missaoService = missaoService;
+    }
 
 
     //CREATE

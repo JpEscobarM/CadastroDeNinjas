@@ -19,12 +19,15 @@ import java.util.Map;
 @RequestMapping("/api/ninja")
 public class NinjaController {
 
-    @Autowired
-    NinjaService ninjaService;
+    private final NinjaService  ninjaService;
+
+    public NinjaController(NinjaService ninjaService) {
+        this.ninjaService = ninjaService;
+    }
 
     // CREATE
     @PostMapping
-    public ResponseEntity<?> criarNinja(@RequestBody NinjaDTO novoNinja) {
+    public ResponseEntity<NinjaDTO> criarNinja(@RequestBody NinjaDTO novoNinja) {
 
         Ninja ninjaCriado = ninjaService.criarNinja(NinjaMapper.toEntity(novoNinja));
 
@@ -60,6 +63,7 @@ public class NinjaController {
     // UPDATE
     @PutMapping("/{id}")
     public ResponseEntity<NinjaDTO> alterarNinja(@PathVariable Long id, @RequestBody NinjaDTO ninjaAlterado) {
+
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body( NinjaMapper.toDTO(ninjaService.atualizarNinja(id,ninjaAlterado)));
