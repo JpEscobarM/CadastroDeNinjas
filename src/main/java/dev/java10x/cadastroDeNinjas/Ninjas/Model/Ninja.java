@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@ToString(exclude = "missoes")
 public class Ninja {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
