@@ -16,6 +16,7 @@ public class NinjaDTO {
     private Long idade;
     private String aldeia;
     private String ranking;
+    String imgUrl;
     private Missao missao;
 
 }

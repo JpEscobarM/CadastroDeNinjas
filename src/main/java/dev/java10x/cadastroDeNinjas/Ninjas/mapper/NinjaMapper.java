@@ -19,6 +19,7 @@ public class NinjaMapper {
                 ninjaDTO.getIdade(),
                 ninjaDTO.getAldeia(),
                 ninjaDTO.getRanking(),
+                ninjaDTO.getImgUrl(),
                 ninjaDTO.getMissao()
         );
     }
@@ -36,6 +37,7 @@ public class NinjaMapper {
                 ninja.getIdade(),
                 ninja.getAldeia(),
                 ninja.getRanking(),
+                ninja.getImgUrl(),
                 ninja.getMissao()
         );
     }
