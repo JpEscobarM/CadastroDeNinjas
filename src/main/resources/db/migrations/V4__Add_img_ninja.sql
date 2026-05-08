@@ -1,0 +1,2 @@
+ALTER TABLE ninja
+ADD COLUMN img_url VARCHAR(512);

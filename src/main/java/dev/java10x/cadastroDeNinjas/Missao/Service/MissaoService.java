@@ -11,9 +11,11 @@ import java.util.Optional;
 public class MissaoService {
 
 
-    MissaoRepository missaoRepository;
+  private final  MissaoRepository missaoRepository;
+
 
     public MissaoService(MissaoRepository missaoRepository) {
+
         this.missaoRepository = missaoRepository;
     }
 

@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@ToString(exclude = "missao")
 public class Ninja {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +33,9 @@ public class Ninja {
 
     @Column(name="ranking")
     private String ranking;
+
+    @Column(name="img_url ")
+    private String imgUrl;
 
     @ManyToOne
     @JoinColumn(name= "id_missao", nullable = true)
