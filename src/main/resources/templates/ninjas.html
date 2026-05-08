@@ -1,48 +1,285 @@
-<!
+<!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Ninjas</title>
+    <style>
+        :root {
+            --bg: #f4f7fb;
+            --surface: #ffffff;
+            --surface-2: #f8fafc;
+            --text: #1e293b;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --warning: #f59e0b;
+            --warning-hover: #d97706;
+            --danger: #ef4444;
+            --danger-hover: #dc2626;
+            --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+            --radius: 16px;
+        }
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tabela de Ninjas</title>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 100%);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 32px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .page-subtitle {
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.98rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 980px;
+        }
+
+        thead {
+            background: #0f172a;
+            color: #ffffff;
+        }
+
+        thead th {
+            text-align: left;
+            padding: 16px 18px;
+            font-size: 0.9rem;
+            letter-spacing: 0.04em;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border);
+            transition: background-color 0.2s ease;
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--surface-2);
+        }
+
+        tbody tr:hover {
+            background: #eef6ff;
+        }
+
+        tbody td {
+            padding: 16px 18px;
+            vertical-align: middle;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .ninja-img {
+            width: 84px;
+            height: 84px;
+            object-fit: cover;
+            border-radius: 14px;
+            border: 2px solid #dbeafe;
+            background: #e2e8f0;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
+        }
+
+        .missao-vazia {
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .actions form {
+            display: inline-block;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: #ffffff;
+            transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            box-shadow: 0 6px 14px rgba(15, 23, 42, 0.12);
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-details {
+            background: var(--primary);
+        }
+
+        .btn-details:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-edit {
+            background: var(--warning);
+        }
+
+        .btn-edit:hover {
+            background: var(--warning-hover);
+        }
+
+        .btn-delete {
+            background: var(--danger);
+        }
+
+        .btn-delete:hover {
+            background: var(--danger-hover);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .page-title {
+                font-size: 1.6rem;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
+<div class="container">
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Lista de Ninjas</h1>
+            <p class="page-subtitle">Gerencie os ninjas cadastrados, visualize detalhes e realize ações rápidas.</p>
+        </div>
+    </div>
 
-<h1>Lista de Ninjas</h1>
-<table>
-    <thead>
-        <tr>
-            <th>IMG</th>
-            <th>ID</th>
-            <th>NOME</th>
-            <th>IDADE</th>
-            <th>EMAIL</th>
-            <th>RANKING</th>
-            <th>MISSOES</th>
-            <tbody>
-            <tr th:each = "ninja: ${ninjas}">
-                <td> <img th:src="${ninja.imgUrl}" width="100" height="100"></td>
-                <td th:text="${ninja.id}"></td>
-                <td th:text="${ninja.nome}"></td>
-                <td th:text="${ninja.idade}"></td>
-                <td th:text="${ninja.email}"></td>
-                <td th:text="${ninja.ranking}"></td>
-                <td>
-                    <span th:if="${ninja.missao}"><span th:text="${ninja.missao.nome}"></span>, Dificuldade: <span th:text="${ninja.missao.dificuldade}"></span></span>
-                    <span th:if="${ninja.missao == null}">Sem Missões cadastradas para o ninja</span>
-                </td>
-                <td>
-                    <a th:action="@{}">Ver Detalhes</a>
-                    <a th:action="@{}">Alterar</a>
-                    <form th:action="@{/api/ninja/ui/deletar/{id}(id=${ninja.id})}" method="post" style="display:inline;">
-                    <button type="submit">Deletar</button>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </tr>
-    </thead>
-</table>
+    <div class="card">
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>IMG</th>
+                    <th>ID</th>
+                    <th>NOME</th>
+                    <th>IDADE</th>
+                    <th>EMAIL</th>
+                    <th>RANKING</th>
+                    <th>MISSÃO</th>
+                    <th>AÇÕES</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ninja : ${ninjas}">
+                    <td>
+                        <img
+                                class="ninja-img"
+                                th:src="${ninja.imgUrl}"
+                                alt="Imagem do ninja">
+                    </td>
+                    <td th:text="${ninja.id}"></td>
+                    <td th:text="${ninja.nome}"></td>
+                    <td th:text="${ninja.idade}"></td>
+                    <td th:text="${ninja.email}"></td>
+                    <td>
+                        <span class="badge" th:text="${ninja.ranking}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${ninja.missao != null}">
+                            <strong th:text="${ninja.missao.nome}"></strong>,
+                            Dificuldade:
+                            <span th:text="${ninja.missao.dificuldade}"></span>
+                        </span>
+                        <span class="missao-vazia" th:if="${ninja.missao == null}">
+                            Sem missões cadastradas para o ninja
+                        </span>
+                    </td>
+                    <td>
+                        <div class="actions">
+                            <form th:action="@{/api/ninja/ui/{id}(id=${ninja.id})}" method="get">
+                                <button class="btn btn-details" type="submit">Detalhes</button>
+                            </form>
 
+                            <form th:action="@{/api/ninja/ui/alterar/{id}(id=${ninja.id})}" method="get">
+                                <button class="btn btn-edit" type="submit">Alterar</button>
+                            </form>
+
+                            <form th:action="@{/api/ninja/ui/deletar/{id}(id=${ninja.id})}" method="post">
+                                <button class="btn btn-delete" type="submit">Deletar</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 </body>
 </html>
