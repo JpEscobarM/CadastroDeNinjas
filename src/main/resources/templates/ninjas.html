@@ -131,7 +131,7 @@
         .actions {
             display: flex;
             gap: 10px;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
         }
 
         .actions form {
@@ -182,6 +182,14 @@
             background: var(--danger-hover);
         }
 
+        .btn-add {
+            background: #10b981;
+        }
+
+        .btn-add:hover {
+            background: #059669;
+        }
+
         .badge {
             display: inline-block;
             padding: 6px 10px;
@@ -218,6 +226,10 @@
             <h1 class="page-title">Lista de Ninjas</h1>
             <p class="page-subtitle">Gerencie os ninjas cadastrados, visualize detalhes e realize ações rápidas.</p>
         </div>
+
+        <form th:action="@{/api/ninja/ui/adicionar}" method="get">
+            <button class="btn btn-add" type="submit">Adicionar Ninja</button>
+        </form>
     </div>
 
     <div class="card">
@@ -225,8 +237,8 @@
             <table>
                 <thead>
                 <tr>
-                    <th>IMG</th>
                     <th>ID</th>
+                    <th>IMG</th>
                     <th>NOME</th>
                     <th>IDADE</th>
                     <th>EMAIL</th>
@@ -237,13 +249,10 @@
                 </thead>
                 <tbody>
                 <tr th:each="ninja : ${ninjas}">
-                    <td>
-                        <img
-                                class="ninja-img"
-                                th:src="${ninja.imgUrl}"
-                                alt="Imagem do ninja">
-                    </td>
                     <td th:text="${ninja.id}"></td>
+                    <td>
+                        <img class="ninja-img" th:src="${ninja.imgUrl}" alt="Imagem do ninja">
+                    </td>
                     <td th:text="${ninja.nome}"></td>
                     <td th:text="${ninja.idade}"></td>
                     <td th:text="${ninja.email}"></td>
@@ -264,10 +273,6 @@
                         <div class="actions">
                             <form th:action="@{/api/ninja/ui/{id}(id=${ninja.id})}" method="get">
                                 <button class="btn btn-details" type="submit">Detalhes</button>
-                            </form>
-
-                            <form th:action="@{/api/ninja/ui/alterar/{id}(id=${ninja.id})}" method="get">
-                                <button class="btn btn-edit" type="submit">Alterar</button>
                             </form>
 
                             <form th:action="@{/api/ninja/ui/deletar/{id}(id=${ninja.id})}" method="post">

@@ -1,5 +1,6 @@
 package dev.java10x.cadastroDeNinjas.Ninjas.Controller;
 
+import dev.java10x.cadastroDeNinjas.Ninjas.Model.Ninja;
 import dev.java10x.cadastroDeNinjas.Ninjas.Service.NinjaService;
 import dev.java10x.cadastroDeNinjas.Ninjas.dto.NinjaDTO;
 import dev.java10x.cadastroDeNinjas.Ninjas.mapper.NinjaMapper;
@@ -41,4 +42,38 @@ public class NinjaControllerUi {
         ninjaService.deleteNinja(id);
         return "redirect:/api/ninja/ui";
     }
+
+    @GetMapping("/{id}")
+    public String buscarNinjaPorId(@PathVariable Long id, Model model) {
+
+       Ninja ninja= ninjaService.findById(id);
+
+       model.addAttribute("ninja",ninja);
+
+        return "detalhesninja";
+    }
+
+
+    // CREATE
+    @GetMapping("/adicionar")
+    public String mostrarFormularioAdicionar(Model model) {
+
+        model.addAttribute("ninjaNovo",new NinjaDTO());
+
+        return "adicionarNinja";
+    }
+
+
+    // CREATE
+    @PostMapping
+    public String criarNinja(@ModelAttribute NinjaDTO novoNinja, RedirectAttributes redirectAttributes) {
+
+        Ninja ninjaCriado = ninjaService.criarNinja(NinjaMapper.toEntity(novoNinja));
+
+        redirectAttributes.addFlashAttribute("mensagem", "Ninja cadastrado com sucesso!");
+
+        return "redirect:/api/ninja/ui";
+    }
+
+
 }
