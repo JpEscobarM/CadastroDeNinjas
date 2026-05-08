@@ -7,13 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("api/ninja/ui")
+@RequestMapping("/api/ninja/ui")
 public class NinjaControllerUi {
 
     private final NinjaService ninjaService;
@@ -33,6 +33,12 @@ public class NinjaControllerUi {
 
         model.addAttribute("ninjas", ninjas);
 
-        return "ninjas"; //tem que retornar o nome dapagina que renderiza
+        return "ninjas"; //tem que retornar o nome da pagina que renderiza
+    }
+
+    @PostMapping ("/deletar/{id}")
+    public String deletarNinjaPorId(@PathVariable Long id) {
+        ninjaService.deleteNinja(id);
+        return "redirect:/api/ninja/ui";
     }
 }
