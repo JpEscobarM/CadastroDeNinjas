@@ -14,7 +14,7 @@ import java.util.Map;
 public class NinjaExcepetionHandler {
 
     @ExceptionHandler(NinjaNotFoundException.class)
-    public ResponseEntity<?> handleNinjaNotFoundException(NinjaNotFoundException exception)
+    public ResponseEntity<NinjaErrorResponse> handleNinjaNotFoundException(NinjaNotFoundException exception)
     {
 
         NinjaErrorResponse errorResponse = new NinjaErrorResponse(
