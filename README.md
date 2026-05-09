@@ -32,6 +32,10 @@ Gerenciamento de missões e dos ninjas associados a elas.
 
 **SQL:** Manipulação do banco de dados
 
+**Thymeleaf:** Renderização e manipulação de endpoints (UI)
+
+**Swagger:** Documentação
+
 ### Design do Banco de Dados
 
 O esquema do banco de dados segue as seguintes relações:
